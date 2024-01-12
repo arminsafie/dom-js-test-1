@@ -6,6 +6,7 @@ const startAddMovieBtn = document.getElementById("addMovieBtn");
 const btnPassiveInput = document.querySelector(".btn--passive");
 const btnsuccessInput = document.querySelector(".btn--success");
 const userInputAr = document.querySelectorAll("input");
+const movies = [];
 //*showing movie input form
 
 const toggleBackDrop = () => {
@@ -41,6 +42,13 @@ const addMovieHandeler = () => {
     alert("enter a valid input");
     return;
   }
+  const newMovie = {
+    id: Math.random().toString(),
+    title: inputTitle,
+    image: inputImgUrl,
+    rating: inputrating,
+  };
+  movies.push(newMovie);
 };
 
 //*eventListeners
