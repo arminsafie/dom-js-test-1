@@ -24,6 +24,25 @@ const movieInputHandeler = () => {
   clearInput();
 };
 
+//*addMovie handeler
+
+const addMovieHandeler = () => {
+  //getin input values
+  const inputTitle = userInputAr[0].value;
+  const inputImgUrl = userInputAr[1].value;
+  const inputrating = userInputAr[2].value;
+  if (
+    inputTitle.trim() === "" ||
+    inputImgUrl.trim() === "" ||
+    inputrating.trim() === "" ||
+    +inputrating < 1 ||
+    +inputrating > 5
+  ) {
+    alert("enter a valid input");
+    return;
+  }
+};
+
 //*eventListeners
 
 startAddMovieBtn.addEventListener("click", movieInputHandeler);
