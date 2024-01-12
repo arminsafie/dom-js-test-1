@@ -25,6 +25,9 @@ const movieInputHandeler = () => {
   clearInput();
 };
 
+const closeMovieInput = () => {
+  addMovieModal.classList.remove("visible");
+};
 //*addMovie handeler
 
 const addMovieHandeler = () => {
@@ -49,6 +52,9 @@ const addMovieHandeler = () => {
     rating: inputrating,
   };
   movies.push(newMovie);
+  console.log(movies);
+  closeMovieInput();
+  toggleBackDrop();
 };
 
 //*eventListeners
@@ -56,3 +62,4 @@ const addMovieHandeler = () => {
 startAddMovieBtn.addEventListener("click", movieInputHandeler);
 backDropEl.addEventListener("click", movieInputHandeler);
 btnPassiveInput.addEventListener("click", movieInputHandeler);
+btnsuccessInput.addEventListener("click", addMovieHandeler);
