@@ -7,6 +7,7 @@ const btnPassiveInput = document.querySelector(".btn--passive");
 const btnsuccessInput = document.querySelector(".btn--success");
 const userInputAr = document.querySelectorAll("input");
 const entryTextEl = document.getElementById("entry-text");
+const listRoot = document.getElementById("movie-list");
 const movies = [];
 //*showing movie input form
 
@@ -36,6 +37,25 @@ const movieInputHandeler = () => {
 const closeMovieInput = () => {
   addMovieModal.classList.remove("visible");
 };
+
+//render element
+const renderNewMovieElement = (id, title, imageUrl, rating) => {
+  const newMovieElement = document.createElement("li");
+  newMovieElement.classList = "movie-element";
+  newMovieElement.innerHTML = `
+    <div class="movie-element__image">
+    <img src="${imageUrl}" alt="${title}">
+    </div>
+    <div class="movie-element__info">
+      <h2>${title}</h2>
+      <div class="box-info">
+        <p>${rating}/5 stars</p>
+        <button class="delete-btn"> delete</button>
+      </div>
+    </div>
+  `;
+  listRoot.append(newMovieElement);
+};
 //*addMovie handeler
 
 const addMovieHandeler = () => {
@@ -64,6 +84,12 @@ const addMovieHandeler = () => {
   closeMovieInput();
   toggleBackDrop();
   clearInput();
+  renderNewMovieElement(
+    newMovie.id,
+    newMovie.title,
+    newMovie.image,
+    newMovie.rating
+  );
   updateUi();
 };
 
