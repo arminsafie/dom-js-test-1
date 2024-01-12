@@ -6,6 +6,7 @@ const startAddMovieBtn = document.getElementById("addMovieBtn");
 const btnPassiveInput = document.querySelector(".btn--passive");
 const btnsuccessInput = document.querySelector(".btn--success");
 const userInputAr = document.querySelectorAll("input");
+const entryTextEl = document.getElementById("entry-text");
 const movies = [];
 //*showing movie input form
 
@@ -13,6 +14,13 @@ const toggleBackDrop = () => {
   backDropEl.classList.toggle("visible");
 };
 
+const updateUi = () => {
+  if (movies.length === 0) {
+    entryTextEl.style.display = "block";
+  } else {
+    entryTextEl.style.display = "none";
+  }
+};
 const clearInput = () => {
   for (const input of userInputAr) {
     input.value = "";
@@ -55,6 +63,8 @@ const addMovieHandeler = () => {
   console.log(movies);
   closeMovieInput();
   toggleBackDrop();
+  clearInput();
+  updateUi();
 };
 
 //*eventListeners
