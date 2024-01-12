@@ -8,6 +8,7 @@ const btnsuccessInput = document.querySelector(".btn--success");
 const userInputAr = document.querySelectorAll("input");
 const entryTextEl = document.getElementById("entry-text");
 const listRoot = document.getElementById("movie-list");
+const deleteMoviePopup = document.getElementById("delete-modal");
 const movies = [];
 //*showing movie input form
 
@@ -33,11 +34,20 @@ const movieInputHandeler = () => {
   toggleBackDrop();
   clearInput();
 };
-
+const closeMovieDeletionModel = () => {
+  toggleBackDrop();
+  deleteMoviePopup.classList.remove("visible");
+};
 const closeMovieInput = () => {
   addMovieModal.classList.remove("visible");
 };
-
+const deleteMovieHandler = () => {
+  deleteMoviePopup.classList.add("visible");
+  toggleBackDrop();
+  const cancelDeletionBtn = deleteMoviePopup.querySelector(".btn--passive");
+  let configDeletionBtn = deleteMoviePopup.querySelector(".btn--danger");
+  cancelDeletionBtn.addEventListener("click", closeMovieDeletionModel);
+};
 //render element
 const renderNewMovieElement = (id, title, imageUrl, rating) => {
   const newMovieElement = document.createElement("li");
@@ -54,6 +64,7 @@ const renderNewMovieElement = (id, title, imageUrl, rating) => {
       </div>
     </div>
   `;
+  newMovieElement.addEventListener("click", deleteMovieHandler);
   listRoot.append(newMovieElement);
 };
 //*addMovie handeler
