@@ -41,20 +41,94 @@ const closeMovieDeletionModel = () => {
 const closeMovieInput = () => {
   addMovieModal.classList.remove("visible");
 };
-const deleteMovieHandler = () => {
+// const deleteMovie = (movieId) => {
+//   let movieIndex = 0;
+//   for (const movie of movies) {
+//     if (movie.id === movieId) {
+//       break;
+//     }
+//     movieIndex++;
+//   }
+//   movies.splice(movieIndex, 1);
+//   const listRoot = document.getElementById("movie-list");
+//   // listRoot.children[movieIndex].remove();
+//   listRoot.removeChild(listRoot.children[movieIndex]);
+//   closeMovieDeletionModel();
+//   updateUi();
+// };
+// const deleteMovieHandler = (movieId) => {
+//   deleteMoviePopup.classList.add("visible");
+//   toggleBackDrop();
+//   const cancelDeletionBtn = deleteMoviePopup.querySelector(".btn--passive");
+//   let confirmDeletionBtn = deleteMoviePopup.querySelector(".btn--danger");
+//   //remove event listeners
+//   cancelDeletionBtn.removeEventListener;
+//   confirmDeletionBtn.replaceWith(confirmDeletionBtn.cloneNode(true));
+//   confirmDeletionBtn = deleteMoviePopup.querySelector(".btn--danger");
+//   //event listener
+//   cancelDeletionBtn.addEventListener("click", closeMovieDeletionModel);
+//   confirmDeletionBtn.addEventListener("click", deleteMovie.bind(null, movieId));
+// };
+// //render element
+// const renderNewMovieElement = (id, title, imageUrl, rating) => {
+//   const newMovieElement = document.createElement("li");
+//   newMovieElement.classList = "movie-element";
+//   newMovieElement.innerHTML = `
+//     <div class="movie-element__image">
+//     <img src="${imageUrl}" alt="${title}">
+//     </div>
+//     <div class="movie-element__info">
+//       <h2>${title}</h2>
+//       <div class="box-info">
+//         <p>${rating}/5 stars</p>
+//         <button class="delete-btn"> delete</button>
+//       </div>
+//     </div>
+//   `;
+//   newMovieElement.addEventListener("click", deleteMovieHandler);
+//   listRoot.append(newMovieElement);
+// };
+//*addMovie handeler
+const deleteMovie = (movieId) => {
+  let movieIndex = 0;
+  for (const movie of movies) {
+    if (movie.id === movieId) {
+      break;
+    }
+    movieIndex++;
+  }
+  movies.splice(movieIndex, 1);
+  const listRoot = document.getElementById("movie-list");
+  listRoot.removeChild(listRoot.children[movieIndex]);
+  closeMovieDeletionModel();
+  updateUi();
+};
+
+const deleteMovieHandler = (movieId) => {
   deleteMoviePopup.classList.add("visible");
   toggleBackDrop();
   const cancelDeletionBtn = deleteMoviePopup.querySelector(".btn--passive");
-  let configDeletionBtn = deleteMoviePopup.querySelector(".btn--danger");
+  let confirmDeletionBtn = deleteMoviePopup.querySelector(".btn--danger");
+
+  // Remove event listener
+  cancelDeletionBtn.removeEventListener("click", closeMovieDeletionModel);
+
+  // Clone confirmDeletionBtn to remove existing event listener
+  confirmDeletionBtn.replaceWith(confirmDeletionBtn.cloneNode(true));
+  confirmDeletionBtn = deleteMoviePopup.querySelector(".btn--danger");
+
+  // Add new event listeners
   cancelDeletionBtn.addEventListener("click", closeMovieDeletionModel);
+  confirmDeletionBtn.addEventListener("click", () => deleteMovie(movieId));
 };
-//render element
+
+// Update the event listener for "delete" button in renderNewMovieElement
 const renderNewMovieElement = (id, title, imageUrl, rating) => {
   const newMovieElement = document.createElement("li");
   newMovieElement.classList = "movie-element";
   newMovieElement.innerHTML = `
     <div class="movie-element__image">
-    <img src="${imageUrl}" alt="${title}">
+      <img src="${imageUrl}" alt="${title}">
     </div>
     <div class="movie-element__info">
       <h2>${title}</h2>
@@ -64,11 +138,13 @@ const renderNewMovieElement = (id, title, imageUrl, rating) => {
       </div>
     </div>
   `;
-  newMovieElement.addEventListener("click", deleteMovieHandler);
+
+  // Find and add event listener to the delete button
+  const deleteButton = newMovieElement.querySelector(".delete-btn");
+  deleteButton.addEventListener("click", () => deleteMovieHandler(id));
+
   listRoot.append(newMovieElement);
 };
-//*addMovie handeler
-
 const addMovieHandeler = () => {
   //getin input values
   const inputTitle = userInputAr[0].value;
