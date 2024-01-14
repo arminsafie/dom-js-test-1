@@ -179,10 +179,15 @@ const addMovieHandeler = () => {
   );
   updateUi();
 };
+const backdropClickHandeler = () => {
+  closeMovieInput();
+  closeMovieDeletionModel();
+  clearInput();
+};
 
 //*eventListeners
 
 startAddMovieBtn.addEventListener("click", movieInputHandeler);
-backDropEl.addEventListener("click", movieInputHandeler);
+backDropEl.addEventListener("click", backdropClickHandeler);
 btnPassiveInput.addEventListener("click", movieInputHandeler);
 btnsuccessInput.addEventListener("click", addMovieHandeler);
